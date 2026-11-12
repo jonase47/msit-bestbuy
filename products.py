@@ -1,5 +1,8 @@
+"""Product class for the store."""
+
+
 class Product:
-# A product type with name, price, stock quantity and active status.
+    """A product type with name, price, stock quantity and active status."""
 
     def __init__(self, name, price, quantity):
         if not name or not name.strip():
@@ -15,11 +18,11 @@ class Product:
         self.active = True
 
     def get_quantity(self):
-        # Return the stock quantity.
+        """Return the stock quantity."""
         return self.quantity
 
     def set_quantity(self, quantity):
-        # Set the stock quantity; deactivate the product at 0.
+        """Set the stock quantity; deactivate the product at 0."""
         if quantity < 0:
             raise ValueError("Menge darf nicht negativ sein.")
         self.quantity = quantity
@@ -27,25 +30,25 @@ class Product:
             self.deactivate()
 
     def is_active(self):
-        # Return True if the product is active.
+        """Return True if the product is active."""
         return self.active
 
     def activate(self):
-        # Activate the product.
+        """Activate the product."""
         self.active = True
 
     def deactivate(self):
-        # Deactivate the product.
+        """Deactivate the product."""
         self.active = False
 
     def show(self):
-        # Print the product to the console.
+        """Print the product to the console."""
         print(f"{self.name}, Price: {self.price}, Quantity: {self.quantity}")
 
     def buy(self, quantity):
-        # Buy the given quantity and return the total price.
+        """Buy the given quantity and return the total price."""
         if not self.active:
-            raise Exception(f"{self.name} ist nicht aktiv und kann nicht gekauft werden.")
+            raise ValueError(f"{self.name} ist nicht aktiv und kann nicht gekauft werden.")
         if quantity <= 0:
             raise ValueError("Kaufmenge muss größer als 0 sein.")
         if quantity > self.quantity:
@@ -57,22 +60,3 @@ class Product:
         # Use the setter so the product gets deactivated when sold out
         self.set_quantity(self.quantity - quantity)
         return float(total_price)
-
-
-def main():
-    bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
-    mac = Product("MacBook Air M2", price=1450, quantity=100)
-
-    print(bose.buy(50))
-    print(mac.buy(100))
-    print(mac.is_active())
-
-    bose.show()
-    mac.show()
-
-    bose.set_quantity(1000)
-    bose.show()
-
-
-if __name__ == "__main__":
-    main()

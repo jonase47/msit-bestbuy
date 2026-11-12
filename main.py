@@ -1,9 +1,11 @@
+"""Command-line interface for the Best Buy store."""
+
 import products
 import store
 
 
 def list_products(store_obj):
-    # Print all active products numbered and return them.
+    """Print all active products numbered and return them."""
     print("------")
     active_products = store_obj.get_all_products()
     number = 1
@@ -16,7 +18,7 @@ def list_products(store_obj):
 
 
 def make_order(store_obj):
-    # Ask the user for products and quantities, then place the order.
+    """Ask the user for products and quantities, then place the order."""
     active_products = list_products(store_obj)
     print("Wenn du die Bestellung abschließen willst, drücke einfach Enter.")
 
@@ -49,12 +51,12 @@ def make_order(store_obj):
     try:
         total_price = store_obj.order(shopping_list)
         print(f"********\nBestellung erfolgreich! Gesamtpreis: {total_price} Dollar.")
-    except Exception as error:
+    except ValueError as error:
         print(f"Fehler bei der Bestellung: {error}")
 
 
 def start(store_obj):
-    # Show the main menu until the user quits.
+    """Show the main menu until the user quits."""
     while True:
         print("\n   Store Menu")
         print("   ----------")
@@ -79,6 +81,7 @@ def start(store_obj):
 
 
 def main():
+    """Create the initial inventory and start the store menu."""
     # setup initial stock of inventory
     product_list = [
         products.Product("MacBook Air M2", price=1450, quantity=100),
